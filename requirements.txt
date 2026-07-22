@@ -1,2 +1,13 @@
+# Core API
 anthropic>=0.40.0
+
+# Webhook Server
+flask>=3.0.0
+gunicorn>=21.2.0
+
+# Environment
 python-dotenv>=1.0.0
+
+# Google Drive upload (optional — for automated Drive output)
+google-api-python-client>=2.100.0
+google-auth>=2.23.0
