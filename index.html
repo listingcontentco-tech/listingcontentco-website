@@ -3,440 +3,668 @@
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
-<meta name="description" content="ListingContent Co turns your unoptimized product catalog into SEO-ready listings that rank and convert. AI-powered catalog optimization for e-commerce stores.">
+<meta name="description" content="Automated, conversion-focused SEO overhaul for your Shopify & e-commerce product listings — delivered in under 48 hours. Titles, meta descriptions, keyword tags, and more.">
+<meta property="og:title" content="ListingContent Co — E-Commerce Catalog SEO Engine">
+<meta property="og:description" content="Turn dead Shopify listings into organic revenue engines. AI-powered catalog SEO delivered in 48 hours.">
 <title>ListingContent Co — E-Commerce Catalog SEO Engine</title>
 <link rel="preconnect" href="https://fonts.googleapis.com">
-<link href="https://fonts.googleapis.com/css2?family=Syne:wght@400;600;700;800&family=Inter:wght@300;400;500&display=swap" rel="stylesheet">
+<link href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@300;400;500;600;700;800&display=swap" rel="stylesheet">
 <style>
-  *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+*,*::before,*::after{box-sizing:border-box;margin:0;padding:0}
 
-  :root {
-    --black: #0A0A0A;
-    --white: #F7F6F2;
-    --accent: #2563EB;
-    --accent-light: #EFF6FF;
-    --mid: #6B7280;
-    --border: #E5E7EB;
-    --green: #10B981;
-  }
+:root {
+  --bg: #090D16;
+  --bg2: #0F172A;
+  --bg3: #1E293B;
+  --border: rgba(255,255,255,0.08);
+  --border2: rgba(255,255,255,0.12);
+  --white: #F8FAFC;
+  --muted: #94A3B8;
+  --accent: #10B981;
+  --accent2: #6366F1;
+  --accent-glow: rgba(16,185,129,0.15);
+  --indigo-glow: rgba(99,102,241,0.15);
+  --red: #EF4444;
+  --yellow: #F59E0B;
+}
 
-  html { scroll-behavior: smooth; }
+html { scroll-behavior: smooth; }
 
-  body {
-    font-family: 'Inter', sans-serif;
-    background: var(--white);
-    color: var(--black);
-    font-size: 16px;
-    line-height: 1.6;
-  }
+body {
+  font-family: 'Plus Jakarta Sans', sans-serif;
+  background: var(--bg);
+  color: var(--white);
+  font-size: 16px;
+  line-height: 1.6;
+  overflow-x: hidden;
+}
 
-  /* NAV */
-  nav {
-    position: fixed; top: 0; left: 0; right: 0; z-index: 100;
-    display: flex; align-items: center; justify-content: space-between;
-    padding: 1.25rem 2rem;
-    background: rgba(247,246,242,0.92);
-    backdrop-filter: blur(12px);
-    border-bottom: 1px solid var(--border);
-  }
-  .nav-logo {
-    font-family: 'Syne', sans-serif;
-    font-weight: 800; font-size: 1.1rem;
-    color: var(--black); text-decoration: none;
-    letter-spacing: -0.02em;
-  }
-  .nav-logo span { color: var(--accent); }
-  .nav-cta {
-    background: var(--black); color: var(--white);
-    padding: 0.6rem 1.4rem; border-radius: 6px;
-    font-size: 0.875rem; font-weight: 500;
-    text-decoration: none; transition: opacity 0.2s;
-  }
-  .nav-cta:hover { opacity: 0.8; }
+/* GRID BG */
+body::before {
+  content: '';
+  position: fixed; top: 0; left: 0; right: 0; bottom: 0;
+  background-image:
+    linear-gradient(rgba(255,255,255,0.02) 1px, transparent 1px),
+    linear-gradient(90deg, rgba(255,255,255,0.02) 1px, transparent 1px);
+  background-size: 60px 60px;
+  pointer-events: none; z-index: 0;
+}
 
-  /* HERO */
-  .hero {
-    min-height: 100vh;
-    display: flex; flex-direction: column;
-    justify-content: center; align-items: flex-start;
-    padding: 8rem 2rem 4rem;
-    max-width: 1100px; margin: 0 auto;
-  }
-  .hero-eyebrow {
-    font-size: 0.8rem; font-weight: 500; letter-spacing: 0.12em;
-    text-transform: uppercase; color: var(--accent);
-    background: var(--accent-light);
-    padding: 0.35rem 0.9rem; border-radius: 100px;
-    margin-bottom: 2rem; display: inline-block;
-  }
-  .hero h1 {
-    font-family: 'Syne', sans-serif;
-    font-size: clamp(2.8rem, 7vw, 5.5rem);
-    font-weight: 800; line-height: 1.05;
-    letter-spacing: -0.03em;
-    max-width: 820px;
-    margin-bottom: 1.75rem;
-  }
-  .hero h1 em {
-    font-style: normal;
-    color: var(--accent);
-  }
-  .hero-sub {
-    font-size: 1.2rem; font-weight: 300;
-    color: var(--mid); max-width: 560px;
-    margin-bottom: 2.5rem; line-height: 1.7;
-  }
-  .hero-actions { display: flex; gap: 1rem; flex-wrap: wrap; align-items: center; }
-  .btn-primary {
-    background: var(--accent); color: #fff;
-    padding: 0.9rem 2rem; border-radius: 8px;
-    font-size: 1rem; font-weight: 500;
-    text-decoration: none; transition: background 0.2s;
-  }
-  .btn-primary:hover { background: #1d4ed8; }
-  .btn-secondary {
-    color: var(--black); font-size: 0.95rem;
-    font-weight: 500; text-decoration: none;
-    border-bottom: 1px solid var(--black);
-    padding-bottom: 2px;
-  }
+/* NAV */
+nav {
+  position: fixed; top: 0; left: 0; right: 0; z-index: 100;
+  display: flex; align-items: center; justify-content: space-between;
+  padding: 1rem 2rem;
+  background: rgba(9,13,22,0.85);
+  backdrop-filter: blur(20px);
+  border-bottom: 1px solid var(--border);
+}
+.nav-logo {
+  font-size: 1rem; font-weight: 800; color: var(--white);
+  text-decoration: none; letter-spacing: -0.02em;
+}
+.nav-logo span { color: var(--accent); }
+.nav-links { display: flex; gap: 2rem; align-items: center; }
+.nav-links a {
+  color: var(--muted); font-size: 0.875rem; font-weight: 500;
+  text-decoration: none; transition: color 0.2s;
+}
+.nav-links a:hover { color: var(--white); }
+.nav-cta {
+  background: var(--accent); color: #000 !important;
+  padding: 0.55rem 1.25rem; border-radius: 8px;
+  font-weight: 700 !important; font-size: 0.875rem !important;
+  transition: opacity 0.2s !important;
+}
+.nav-cta:hover { opacity: 0.85 !important; color: #000 !important; }
+@media(max-width:768px){ .nav-links { display: none; } }
 
-  /* BEFORE / AFTER */
-  .ba-section {
-    background: var(--black); color: var(--white);
-    padding: 6rem 2rem;
-  }
-  .ba-inner { max-width: 1100px; margin: 0 auto; }
-  .section-label {
-    font-size: 0.75rem; font-weight: 500; letter-spacing: 0.14em;
-    text-transform: uppercase; color: var(--mid);
-    margin-bottom: 1rem;
-  }
-  .ba-inner h2 {
-    font-family: 'Syne', sans-serif;
-    font-size: clamp(1.8rem, 4vw, 3rem);
-    font-weight: 700; margin-bottom: 3rem;
-    letter-spacing: -0.02em;
-  }
-  .ba-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 1.5rem; }
-  @media (max-width: 700px) { .ba-grid { grid-template-columns: 1fr; } }
-  .ba-card {
-    padding: 2rem; border-radius: 12px;
-    border: 1px solid rgba(255,255,255,0.08);
-  }
-  .ba-card.before { background: rgba(255,255,255,0.04); }
-  .ba-card.after { background: rgba(37,99,235,0.15); border-color: rgba(37,99,235,0.3); }
-  .ba-tag {
-    font-size: 0.7rem; font-weight: 600; letter-spacing: 0.1em;
-    text-transform: uppercase; padding: 0.25rem 0.7rem;
-    border-radius: 100px; margin-bottom: 1.25rem; display: inline-block;
-  }
-  .before .ba-tag { background: rgba(255,255,255,0.08); color: var(--mid); }
-  .after .ba-tag { background: rgba(37,99,235,0.3); color: #93C5FD; }
-  .ba-title { font-size: 0.8rem; color: var(--mid); margin-bottom: 0.4rem; text-transform: uppercase; letter-spacing: 0.08em; }
-  .ba-value { font-size: 1rem; line-height: 1.5; margin-bottom: 1rem; }
-  .after .ba-value { color: #E0F2FE; }
-  .ba-meta { font-size: 0.8rem; color: var(--mid); }
-  .after .ba-meta span { color: var(--green); font-weight: 500; }
+/* HERO */
+.hero {
+  position: relative; z-index: 1;
+  min-height: 100vh;
+  display: flex; flex-direction: column;
+  justify-content: center; align-items: center;
+  text-align: center;
+  padding: 8rem 2rem 5rem;
+}
+.hero::before {
+  content: '';
+  position: absolute; top: 10%; left: 50%; transform: translateX(-50%);
+  width: 800px; height: 500px;
+  background: radial-gradient(ellipse, rgba(16,185,129,0.12) 0%, transparent 70%);
+  pointer-events: none;
+}
+.hero-badge {
+  display: inline-flex; align-items: center; gap: 0.5rem;
+  background: rgba(16,185,129,0.1); border: 1px solid rgba(16,185,129,0.25);
+  color: var(--accent); font-size: 0.75rem; font-weight: 600;
+  letter-spacing: 0.08em; text-transform: uppercase;
+  padding: 0.4rem 1rem; border-radius: 100px; margin-bottom: 2rem;
+}
+.hero-badge::before { content: '●'; font-size: 0.5rem; animation: pulse 2s infinite; }
+@keyframes pulse { 0%,100%{opacity:1} 50%{opacity:0.3} }
 
-  /* HOW IT WORKS */
-  .how-section { padding: 6rem 2rem; max-width: 1100px; margin: 0 auto; }
-  .how-section h2 {
-    font-family: 'Syne', sans-serif;
-    font-size: clamp(1.8rem, 4vw, 3rem);
-    font-weight: 700; letter-spacing: -0.02em;
-    margin-bottom: 3.5rem;
-  }
-  .steps { display: grid; grid-template-columns: repeat(3, 1fr); gap: 2rem; }
-  @media (max-width: 700px) { .steps { grid-template-columns: 1fr; } }
-  .step { padding: 2rem; border: 1px solid var(--border); border-radius: 12px; }
-  .step-num {
-    font-family: 'Syne', sans-serif;
-    font-size: 2.5rem; font-weight: 800;
-    color: var(--accent); opacity: 0.3;
-    line-height: 1; margin-bottom: 1rem;
-  }
-  .step h3 { font-size: 1.1rem; font-weight: 600; margin-bottom: 0.5rem; }
-  .step p { font-size: 0.9rem; color: var(--mid); line-height: 1.6; }
+.hero h1 {
+  font-size: clamp(2.4rem, 6vw, 4.5rem);
+  font-weight: 800; line-height: 1.1;
+  letter-spacing: -0.03em;
+  max-width: 900px; margin-bottom: 1.5rem;
+}
+.hero h1 .grad {
+  background: linear-gradient(135deg, #10B981, #6366F1);
+  -webkit-background-clip: text; -webkit-text-fill-color: transparent;
+  background-clip: text;
+}
+.hero-sub {
+  font-size: clamp(1rem, 2vw, 1.2rem);
+  color: var(--muted); max-width: 600px;
+  margin: 0 auto 2.5rem; line-height: 1.7; font-weight: 400;
+}
+.hero-actions {
+  display: flex; gap: 1rem; justify-content: center;
+  flex-wrap: wrap; margin-bottom: 4rem;
+}
+.btn-primary {
+  background: var(--accent); color: #000;
+  padding: 0.9rem 2rem; border-radius: 10px;
+  font-size: 1rem; font-weight: 700;
+  text-decoration: none; transition: all 0.2s;
+  box-shadow: 0 0 30px rgba(16,185,129,0.3);
+}
+.btn-primary:hover { transform: translateY(-2px); box-shadow: 0 0 40px rgba(16,185,129,0.5); }
+.btn-ghost {
+  background: transparent; color: var(--white);
+  padding: 0.9rem 2rem; border-radius: 10px;
+  font-size: 1rem; font-weight: 600;
+  text-decoration: none; border: 1px solid var(--border2);
+  transition: all 0.2s;
+}
+.btn-ghost:hover { border-color: rgba(255,255,255,0.3); background: rgba(255,255,255,0.05); }
 
-  /* WHAT YOU GET */
-  .get-section { background: var(--accent-light); padding: 6rem 2rem; }
-  .get-inner { max-width: 1100px; margin: 0 auto; }
-  .get-inner h2 {
-    font-family: 'Syne', sans-serif;
-    font-size: clamp(1.8rem, 4vw, 3rem);
-    font-weight: 700; letter-spacing: -0.02em;
-    margin-bottom: 3rem;
-  }
-  .get-grid { display: grid; grid-template-columns: repeat(2, 1fr); gap: 1.25rem; }
-  @media (max-width: 700px) { .get-grid { grid-template-columns: 1fr; } }
-  .get-item {
-    background: #fff; padding: 1.75rem;
-    border-radius: 10px; display: flex; gap: 1rem;
-    border: 1px solid var(--border);
-  }
-  .get-icon { font-size: 1.5rem; flex-shrink: 0; }
-  .get-item h3 { font-size: 1rem; font-weight: 600; margin-bottom: 0.3rem; }
-  .get-item p { font-size: 0.875rem; color: var(--mid); }
+/* INTEGRATIONS BAR */
+.integrations {
+  display: flex; align-items: center; gap: 0.75rem;
+  flex-wrap: wrap; justify-content: center;
+}
+.integrations-label {
+  font-size: 0.75rem; color: var(--muted); font-weight: 500;
+  text-transform: uppercase; letter-spacing: 0.08em;
+  margin-right: 0.5rem;
+}
+.int-badge {
+  display: flex; align-items: center; gap: 0.5rem;
+  background: var(--bg3); border: 1px solid var(--border);
+  padding: 0.4rem 0.9rem; border-radius: 8px;
+  font-size: 0.8rem; font-weight: 600; color: var(--muted);
+}
+.int-badge svg { width: 16px; height: 16px; }
 
-  /* PRICING */
-  .pricing-section { padding: 6rem 2rem; max-width: 700px; margin: 0 auto; text-align: center; }
-  .pricing-section h2 {
-    font-family: 'Syne', sans-serif;
-    font-size: clamp(1.8rem, 4vw, 3rem);
-    font-weight: 700; letter-spacing: -0.02em;
-    margin-bottom: 0.75rem;
-  }
-  .pricing-section > p { color: var(--mid); margin-bottom: 3rem; }
-  .pricing-card {
-    background: var(--black); color: var(--white);
-    border-radius: 16px; padding: 3rem 2.5rem;
-    text-align: left;
-  }
-  .price-tag {
-    font-family: 'Syne', sans-serif;
-    font-size: 3.5rem; font-weight: 800;
-    letter-spacing: -0.04em; margin-bottom: 0.25rem;
-  }
-  .price-tag span { font-size: 1.2rem; font-weight: 400; color: var(--mid); }
-  .price-desc { color: var(--mid); font-size: 0.9rem; margin-bottom: 2rem; }
-  .price-features { list-style: none; margin-bottom: 2.5rem; }
-  .price-features li {
-    padding: 0.65rem 0; border-bottom: 1px solid rgba(255,255,255,0.06);
-    font-size: 0.95rem; display: flex; align-items: center; gap: 0.75rem;
-  }
-  .price-features li::before { content: "✓"; color: var(--green); font-weight: 700; }
-  .btn-white {
-    display: block; background: var(--white); color: var(--black);
-    text-align: center; padding: 1rem 2rem; border-radius: 8px;
-    font-size: 1rem; font-weight: 600; text-decoration: none;
-    transition: opacity 0.2s;
-  }
-  .btn-white:hover { opacity: 0.85; }
+/* SECTION COMMONS */
+section { position: relative; z-index: 1; }
+.section-inner { max-width: 1100px; margin: 0 auto; padding: 6rem 2rem; }
+.section-eyebrow {
+  font-size: 0.75rem; font-weight: 700; letter-spacing: 0.12em;
+  text-transform: uppercase; color: var(--accent);
+  margin-bottom: 0.75rem;
+}
+.section-title {
+  font-size: clamp(1.8rem, 4vw, 2.8rem);
+  font-weight: 800; letter-spacing: -0.02em;
+  margin-bottom: 1rem;
+}
+.section-sub { color: var(--muted); max-width: 560px; line-height: 1.7; }
 
-  /* FAQ */
-  .faq-section { padding: 6rem 2rem; max-width: 760px; margin: 0 auto; }
-  .faq-section h2 {
-    font-family: 'Syne', sans-serif;
-    font-size: clamp(1.6rem, 3.5vw, 2.5rem);
-    font-weight: 700; letter-spacing: -0.02em;
-    margin-bottom: 2.5rem;
-  }
-  .faq-item { border-bottom: 1px solid var(--border); padding: 1.5rem 0; }
-  .faq-item h3 { font-size: 1rem; font-weight: 600; margin-bottom: 0.6rem; }
-  .faq-item p { font-size: 0.9rem; color: var(--mid); line-height: 1.7; }
+/* BEFORE / AFTER */
+.ba-section { background: var(--bg2); border-top: 1px solid var(--border); border-bottom: 1px solid var(--border); }
+.ba-grid {
+  display: grid; grid-template-columns: 1fr 1fr; gap: 1.5rem;
+  margin-top: 3rem;
+}
+@media(max-width:700px){ .ba-grid { grid-template-columns: 1fr; } }
+.ba-card {
+  border-radius: 16px; padding: 2rem;
+  border: 1px solid var(--border);
+}
+.ba-card.before { background: rgba(239,68,68,0.05); border-color: rgba(239,68,68,0.15); }
+.ba-card.after { background: rgba(16,185,129,0.05); border-color: rgba(16,185,129,0.2); }
+.ba-tag {
+  display: inline-flex; align-items: center; gap: 0.4rem;
+  font-size: 0.7rem; font-weight: 700; letter-spacing: 0.1em;
+  text-transform: uppercase; padding: 0.3rem 0.75rem;
+  border-radius: 100px; margin-bottom: 1.5rem;
+}
+.before .ba-tag { background: rgba(239,68,68,0.1); color: #F87171; }
+.after .ba-tag { background: rgba(16,185,129,0.1); color: var(--accent); }
+.ba-field-label {
+  font-size: 0.7rem; font-weight: 600; letter-spacing: 0.08em;
+  text-transform: uppercase; color: var(--muted);
+  margin-bottom: 0.35rem; margin-top: 1rem;
+}
+.ba-field-label:first-of-type { margin-top: 0; }
+.ba-field-value { font-size: 0.95rem; line-height: 1.5; }
+.before .ba-field-value { color: #94A3B8; }
+.after .ba-field-value { color: var(--white); }
+.ba-tags-row { display: flex; flex-wrap: wrap; gap: 0.4rem; margin-top: 0.5rem; }
+.tag-pill {
+  background: rgba(99,102,241,0.15); border: 1px solid rgba(99,102,241,0.25);
+  color: #A5B4FC; font-size: 0.72rem; font-weight: 600;
+  padding: 0.25rem 0.65rem; border-radius: 100px;
+}
 
-  /* CTA */
-  .cta-section {
-    background: var(--black); color: var(--white);
-    padding: 6rem 2rem; text-align: center;
-  }
-  .cta-section h2 {
-    font-family: 'Syne', sans-serif;
-    font-size: clamp(2rem, 5vw, 4rem);
-    font-weight: 800; letter-spacing: -0.03em;
-    margin-bottom: 1rem; max-width: 700px; margin-left: auto; margin-right: auto;
-  }
-  .cta-section p { color: var(--mid); margin-bottom: 2.5rem; font-size: 1.1rem; }
-  .btn-cta {
-    background: var(--accent); color: #fff;
-    padding: 1rem 2.5rem; border-radius: 8px;
-    font-size: 1.05rem; font-weight: 600;
-    text-decoration: none; display: inline-block;
-    transition: background 0.2s;
-  }
-  .btn-cta:hover { background: #1d4ed8; }
+/* HOW IT WORKS */
+.steps-grid {
+  display: grid; grid-template-columns: repeat(3,1fr); gap: 1.5rem;
+  margin-top: 3rem;
+}
+@media(max-width:700px){ .steps-grid { grid-template-columns: 1fr; } }
+.step-card {
+  background: var(--bg2); border: 1px solid var(--border);
+  border-radius: 16px; padding: 2rem;
+  position: relative; overflow: hidden;
+  transition: border-color 0.2s;
+}
+.step-card:hover { border-color: var(--border2); }
+.step-card::before {
+  content: '';
+  position: absolute; top: 0; left: 0; right: 0; height: 2px;
+  background: linear-gradient(90deg, var(--accent), var(--accent2));
+}
+.step-num {
+  font-size: 2.5rem; font-weight: 800;
+  background: linear-gradient(135deg, var(--accent), var(--accent2));
+  -webkit-background-clip: text; -webkit-text-fill-color: transparent;
+  background-clip: text; line-height: 1; margin-bottom: 1rem;
+  opacity: 0.4;
+}
+.step-card h3 { font-size: 1.05rem; font-weight: 700; margin-bottom: 0.5rem; }
+.step-card p { font-size: 0.875rem; color: var(--muted); line-height: 1.6; }
+.step-icon {
+  width: 44px; height: 44px; background: var(--bg3);
+  border: 1px solid var(--border); border-radius: 10px;
+  display: flex; align-items: center; justify-content: center;
+  margin-bottom: 1.25rem; font-size: 1.2rem;
+}
 
-  /* FOOTER */
-  footer {
-    padding: 2rem; text-align: center;
-    font-size: 0.8rem; color: var(--mid);
-    border-top: 1px solid var(--border);
-  }
+/* WHAT YOU GET */
+.get-section { background: var(--bg2); border-top: 1px solid var(--border); }
+.get-grid {
+  display: grid; grid-template-columns: repeat(3,1fr); gap: 1rem;
+  margin-top: 3rem;
+}
+@media(max-width:900px){ .get-grid { grid-template-columns: repeat(2,1fr); } }
+@media(max-width:600px){ .get-grid { grid-template-columns: 1fr; } }
+.get-card {
+  background: var(--bg); border: 1px solid var(--border);
+  border-radius: 12px; padding: 1.5rem;
+  transition: border-color 0.2s, transform 0.2s;
+}
+.get-card:hover { border-color: var(--border2); transform: translateY(-2px); }
+.get-icon {
+  width: 40px; height: 40px; border-radius: 10px;
+  background: var(--accent-glow); border: 1px solid rgba(16,185,129,0.2);
+  display: flex; align-items: center; justify-content: center;
+  font-size: 1.1rem; margin-bottom: 1rem;
+}
+.get-card h3 { font-size: 0.95rem; font-weight: 700; margin-bottom: 0.4rem; }
+.get-card p { font-size: 0.8rem; color: var(--muted); line-height: 1.5; }
+
+/* PRICING */
+.pricing-section { border-top: 1px solid var(--border); }
+.pricing-inner { max-width: 640px; margin: 0 auto; padding: 6rem 2rem; text-align: center; }
+.pricing-card {
+  background: var(--bg2); border: 1px solid var(--border2);
+  border-radius: 20px; padding: 3rem 2.5rem;
+  position: relative; overflow: hidden; text-align: left;
+  margin-top: 3rem;
+}
+.pricing-card::before {
+  content: '';
+  position: absolute; top: 0; left: 0; right: 0; height: 1px;
+  background: linear-gradient(90deg, transparent, var(--accent), var(--accent2), transparent);
+}
+.pricing-glow {
+  position: absolute; top: -50%; left: 50%; transform: translateX(-50%);
+  width: 400px; height: 300px;
+  background: radial-gradient(ellipse, rgba(16,185,129,0.08) 0%, transparent 70%);
+  pointer-events: none;
+}
+.price-amount {
+  font-size: 4rem; font-weight: 800; letter-spacing: -0.04em;
+  line-height: 1; margin-bottom: 0.25rem;
+}
+.price-amount span { font-size: 1.5rem; font-weight: 400; color: var(--muted); }
+.price-period { color: var(--muted); font-size: 0.875rem; margin-bottom: 2rem; }
+.price-divider { border: none; border-top: 1px solid var(--border); margin: 1.5rem 0; }
+.price-features { list-style: none; margin-bottom: 2rem; }
+.price-features li {
+  display: flex; align-items: flex-start; gap: 0.75rem;
+  padding: 0.6rem 0; font-size: 0.9rem; color: #CBD5E1;
+  border-bottom: 1px solid var(--border);
+}
+.price-features li:last-child { border-bottom: none; }
+.price-features li::before {
+  content: '✓'; color: var(--accent); font-weight: 700;
+  font-size: 0.85rem; margin-top: 2px; flex-shrink: 0;
+}
+.btn-buy {
+  display: block; text-align: center;
+  background: linear-gradient(135deg, var(--accent), #059669);
+  color: #000; padding: 1.1rem 2rem;
+  border-radius: 12px; font-size: 1rem; font-weight: 800;
+  text-decoration: none; transition: all 0.2s;
+  box-shadow: 0 0 30px rgba(16,185,129,0.25);
+}
+.btn-buy:hover { transform: translateY(-2px); box-shadow: 0 0 50px rgba(16,185,129,0.4); }
+.guarantee {
+  display: flex; align-items: center; gap: 0.5rem;
+  justify-content: center; margin-top: 1.25rem;
+  font-size: 0.8rem; color: var(--muted);
+}
+
+/* FAQ */
+.faq-section { background: var(--bg2); border-top: 1px solid var(--border); }
+.faq-inner { max-width: 760px; margin: 0 auto; padding: 6rem 2rem; }
+.faq-list { margin-top: 3rem; }
+.faq-item {
+  border-bottom: 1px solid var(--border);
+  padding: 1.5rem 0;
+}
+.faq-q {
+  font-size: 1rem; font-weight: 600; cursor: pointer;
+  display: flex; justify-content: space-between; align-items: center;
+  gap: 1rem; user-select: none;
+}
+.faq-q::after {
+  content: '+'; font-size: 1.25rem; color: var(--accent);
+  flex-shrink: 0; transition: transform 0.2s;
+}
+.faq-item.open .faq-q::after { transform: rotate(45deg); }
+.faq-a {
+  font-size: 0.9rem; color: var(--muted); line-height: 1.7;
+  max-height: 0; overflow: hidden; transition: max-height 0.3s ease, padding 0.3s;
+}
+.faq-item.open .faq-a { max-height: 300px; padding-top: 0.75rem; }
+
+/* CTA BANNER */
+.cta-banner {
+  border-top: 1px solid var(--border);
+  padding: 6rem 2rem; text-align: center; position: relative; z-index: 1;
+}
+.cta-banner::before {
+  content: '';
+  position: absolute; top: 50%; left: 50%; transform: translate(-50%,-50%);
+  width: 600px; height: 300px;
+  background: radial-gradient(ellipse, rgba(99,102,241,0.1) 0%, transparent 70%);
+  pointer-events: none;
+}
+.cta-banner h2 {
+  font-size: clamp(2rem, 5vw, 3.5rem);
+  font-weight: 800; letter-spacing: -0.03em;
+  max-width: 700px; margin: 0 auto 1rem; position: relative;
+}
+.cta-banner p { color: var(--muted); margin-bottom: 2.5rem; font-size: 1.05rem; }
+
+/* FOOTER */
+footer {
+  background: var(--bg); border-top: 1px solid var(--border);
+  padding: 3rem 2rem 2rem;
+}
+.footer-inner {
+  max-width: 1100px; margin: 0 auto;
+  display: grid; grid-template-columns: 1fr auto; gap: 2rem;
+  align-items: start;
+}
+@media(max-width:600px){ .footer-inner { grid-template-columns: 1fr; } }
+.footer-brand { font-weight: 800; font-size: 1rem; margin-bottom: 0.5rem; }
+.footer-brand span { color: var(--accent); }
+.footer-tagline { font-size: 0.8rem; color: var(--muted); margin-bottom: 1rem; }
+.footer-contact { font-size: 0.8rem; color: var(--muted); }
+.footer-contact a { color: var(--accent); text-decoration: none; }
+.footer-links { display: flex; gap: 1.5rem; flex-wrap: wrap; }
+.footer-links a { font-size: 0.8rem; color: var(--muted); text-decoration: none; transition: color 0.2s; }
+.footer-links a:hover { color: var(--white); }
+.footer-bottom {
+  max-width: 1100px; margin: 2rem auto 0;
+  padding-top: 1.5rem; border-top: 1px solid var(--border);
+  font-size: 0.75rem; color: var(--muted); text-align: center;
+}
+
+/* STRIPE NOTICE */
+.stripe-notice {
+  display: inline-flex; align-items: center; gap: 0.5rem;
+  font-size: 0.75rem; color: var(--muted);
+  margin-top: 0.75rem;
+}
 </style>
 </head>
 <body>
 
+<!-- NAV -->
 <nav>
   <a href="/" class="nav-logo">Listing<span>Content</span> Co</a>
-  <a href="https://buy.stripe.com/your_seo_checkout_link" class="nav-cta">Get Started</a>
+  <div class="nav-links">
+    <a href="#how">How It Works</a>
+    <a href="#pricing">Pricing</a>
+    <a href="#faq">FAQ</a>
+    <a href="#pricing" class="nav-cta">Get Started</a>
+  </div>
 </nav>
 
 <!-- HERO -->
-<section class="hero">
-  <span class="hero-eyebrow">AI-Powered Catalog Optimization</span>
-  <h1>Your products deserve to be <em>found.</em></h1>
-  <p class="hero-sub">We transform your unoptimized product listings into SEO-ready catalog entries that rank on Google and convert browsers into buyers — in 48 hours.</p>
-  <div class="hero-actions">
-    <a href="https://buy.stripe.com/your_seo_checkout_link" class="btn-primary">Optimize My Catalog →</a>
-    <a href="#how" class="btn-secondary">See how it works</a>
+<section>
+  <div class="hero">
+    <div class="hero-badge">AI-Powered · 48-Hour Delivery · Import-Ready CSV</div>
+    <h1>Turn Dead Shopify & E-Commerce Listings into <span class="grad">Organic Revenue Engines</span></h1>
+    <p class="hero-sub">Automated, conversion-focused SEO overhaul for your product titles, meta descriptions, and keyword tags — delivered in under 48 hours.</p>
+    <div class="hero-actions">
+      <a href="#pricing" class="btn-primary">Get Your Catalog Optimized →</a>
+      <a href="#demo" class="btn-ghost">See Live Audit Example</a>
+    </div>
+    <div class="integrations">
+      <span class="integrations-label">Works with</span>
+      <div class="int-badge">
+        <svg viewBox="0 0 24 24" fill="#96BF48"><path d="M15.337 23.979l7.656-1.338L18.5 0s-2.9.08-3.163 3.5c-.263 3.42 0 20.479 0 20.479z"/><path d="M11 23.979L3.344 22.64 5.5 7.5S3 7 2 5c-1-2 .5-5 .5-5H11v23.979z" fill="#5A863E"/></svg>
+        Shopify
+      </div>
+      <div class="int-badge">
+        <svg viewBox="0 0 24 24" fill="#7F54B3"><path d="M12 0C5.373 0 0 5.373 0 12s5.373 12 12 12 12-5.373 12-12S18.627 0 12 0zm-.5 17.5h-3v-7h3v7zm-1.5-8c-.828 0-1.5-.672-1.5-1.5S9.172 6.5 10 6.5s1.5.672 1.5 1.5S10.828 9.5 10 9.5zm7.5 8h-3v-3.5c0-.828-.672-1.5-1.5-1.5s-1.5.672-1.5 1.5V17.5h-1v-7h1v.96c.44-.614 1.155-1.21 2.25-1.21 1.5 0 3 1 3 3.25V17.5z"/></svg>
+        WooCommerce
+      </div>
+      <div class="int-badge">
+        <svg viewBox="0 0 24 24" fill="#003087"><rect width="24" height="24" rx="4" fill="#003087"/><text x="4" y="16" fill="white" font-size="8" font-weight="bold">BC</text></svg>
+        BigCommerce
+      </div>
+      <div class="int-badge">
+        <svg viewBox="0 0 24 24"><rect width="24" height="24" rx="4" fill="#EE672F"/><text x="5" y="16" fill="white" font-size="8" font-weight="bold">Mg</text></svg>
+        Magento
+      </div>
+    </div>
   </div>
 </section>
 
 <!-- BEFORE / AFTER -->
-<section class="ba-section">
-  <div class="ba-inner">
-    <p class="section-label">Real Results</p>
-    <h2>See the difference in 60 seconds.</h2>
+<section class="ba-section" id="demo">
+  <div class="section-inner">
+    <p class="section-eyebrow">Live Audit Example</p>
+    <h2 class="section-title">See exactly what we transform.</h2>
+    <p class="section-sub">Every listing gets a full SEO overhaul — from title to tags. Here's a real before/after comparison.</p>
     <div class="ba-grid">
       <div class="ba-card before">
-        <span class="ba-tag">Before</span>
-        <div class="ba-title">Product Title</div>
-        <div class="ba-value">blue shirt</div>
-        <div class="ba-title">Description</div>
-        <div class="ba-value">good shirt for men. comfortable. comes in sizes.</div>
-        <div class="ba-title">Meta Description</div>
-        <div class="ba-value" style="color:#4B5563">—</div>
-        <div class="ba-meta">No SEO value. No keywords. No conversions.</div>
+        <span class="ba-tag">⚠ Before — Unoptimized</span>
+        <div class="ba-field-label">Product Title</div>
+        <div class="ba-field-value">Blue Wireless Earbuds</div>
+        <div class="ba-field-label">Description</div>
+        <div class="ba-field-value">earbuds. wireless. good sound. comes with case.</div>
+        <div class="ba-field-label">Meta Description</div>
+        <div class="ba-field-value" style="color:#475569;font-style:italic">— None —</div>
+        <div class="ba-field-label">Keyword Tags</div>
+        <div class="ba-field-value" style="color:#475569;font-style:italic">— None —</div>
+        <div class="ba-field-label">Image Alt Text</div>
+        <div class="ba-field-value" style="color:#475569;font-style:italic">— None —</div>
       </div>
       <div class="ba-card after">
-        <span class="ba-tag">After</span>
-        <div class="ba-title">Product Title</div>
-        <div class="ba-value">Men's Classic Relaxed-Fit Blue Oxford Shirt – Everyday Comfort & Style</div>
-        <div class="ba-title">Meta Description</div>
-        <div class="ba-value">Shop Men's Classic Blue Oxford Shirt. Relaxed fit, breathable fabric, sizes S–3XL. Versatile everyday style at $19.99. Free shipping on $50+.</div>
-        <div class="ba-meta"><span>✓ 8 keyword tags</span> &nbsp;·&nbsp; <span>✓ HTML description</span> &nbsp;·&nbsp; <span>✓ Image alt text</span></div>
+        <span class="ba-tag">✓ After — SEO Optimized</span>
+        <div class="ba-field-label">Product Title</div>
+        <div class="ba-field-value">Blue Wireless Earbuds with Charging Case – Premium Crystal Clear Sound & 40Hr Battery</div>
+        <div class="ba-field-label">Meta Description</div>
+        <div class="ba-field-value">Shop Blue Wireless Earbuds with charging case, 40-hour battery life & crystal clear sound. Bluetooth 5.0, universal fit. Free shipping on orders $50+.</div>
+        <div class="ba-field-label">Keyword Tags</div>
+        <div class="ba-tags-row">
+          <span class="tag-pill">wireless earbuds</span>
+          <span class="tag-pill">bluetooth earbuds</span>
+          <span class="tag-pill">earbuds with case</span>
+          <span class="tag-pill">crystal clear sound</span>
+          <span class="tag-pill">long battery earbuds</span>
+          <span class="tag-pill">premium audio</span>
+          <span class="tag-pill">bluetooth 5.0</span>
+          <span class="tag-pill">noise isolating</span>
+        </div>
+        <div class="ba-field-label">Image Alt Text</div>
+        <div class="ba-field-value">Blue wireless earbuds with magnetic charging case, shown open on white background</div>
       </div>
     </div>
   </div>
 </section>
 
 <!-- HOW IT WORKS -->
-<section class="how-section" id="how">
-  <p class="section-label" style="color:var(--mid)">The Process</p>
-  <h2>Three steps to a fully optimized catalog.</h2>
-  <div class="steps">
-    <div class="step">
-      <div class="step-num">01</div>
-      <h3>Send Us Your Catalog</h3>
-      <p>Export your product list as a CSV or share your Shopify store URL. We handle the rest from there.</p>
-    </div>
-    <div class="step">
-      <div class="step-num">02</div>
-      <h3>We Optimize Everything</h3>
-      <p>Our AI engine rewrites every title, description, meta tag, keyword set, and image alt text to Google's exact standards.</p>
-    </div>
-    <div class="step">
-      <div class="step-num">03</div>
-      <h3>Upload & Start Ranking</h3>
-      <p>You receive a ready-to-import CSV within 48 hours. Upload it to your store and start showing up in search.</p>
+<section id="how">
+  <div class="section-inner">
+    <p class="section-eyebrow">The Process</p>
+    <h2 class="section-title">Three steps. 48 hours. Done.</h2>
+    <p class="section-sub">No technical setup, no platform integrations needed. Just send us your data and we handle everything.</p>
+    <div class="steps-grid">
+      <div class="step-card">
+        <div class="step-icon">📤</div>
+        <div class="step-num">01</div>
+        <h3>Upload Your Catalog</h3>
+        <p>Export your product list as a CSV from Shopify, WooCommerce, BigCommerce, or any platform — or just send us your store URL. We handle the data extraction.</p>
+      </div>
+      <div class="step-card">
+        <div class="step-icon">⚡</div>
+        <div class="step-num">02</div>
+        <h3>AI & Strategist SEO Overhaul</h3>
+        <p>Our AI engine rewrites every title, meta description, keyword set, HTML description, and image alt text to Google's exact standards and conversion best practices.</p>
+      </div>
+      <div class="step-card">
+        <div class="step-icon">📥</div>
+        <div class="step-num">03</div>
+        <h3>Import & Start Ranking</h3>
+        <p>You receive an import-ready CSV within 48 hours. Upload it directly to your store in minutes. No manual editing, no technical work on your end.</p>
+      </div>
     </div>
   </div>
 </section>
 
 <!-- WHAT YOU GET -->
 <section class="get-section">
-  <div class="get-inner">
-    <p class="section-label" style="color:var(--accent)">What's Included</p>
-    <h2>Every listing, fully production-ready.</h2>
+  <div class="section-inner">
+    <p class="section-eyebrow">What's Included</p>
+    <h2 class="section-title">Every listing. Fully production-ready.</h2>
+    <p class="section-sub">We don't just fix titles. Every element of every product listing gets optimized.</p>
     <div class="get-grid">
-      <div class="get-item">
+      <div class="get-card">
         <div class="get-icon">🎯</div>
-        <div>
-          <h3>SEO-Optimized Product Titles</h3>
-          <p>Keyword-rich, conversion-focused titles written to rank for what your customers are actually searching.</p>
-        </div>
+        <h3>SEO-Optimized Product Titles</h3>
+        <p>Keyword-rich, conversion-focused titles under 80 characters — written to rank for what your customers are actually searching.</p>
       </div>
-      <div class="get-item">
+      <div class="get-card">
         <div class="get-icon">📝</div>
-        <div>
-          <h3>HTML Product Descriptions</h3>
-          <p>Structured with benefits, features, and formatting that converts browsers into buyers.</p>
-        </div>
+        <h3>HTML Product Descriptions</h3>
+        <p>Structured with H2 headers, benefit bullets, and bold key features — formatted to convert browsers into buyers.</p>
       </div>
-      <div class="get-item">
+      <div class="get-card">
         <div class="get-icon">🔍</div>
-        <div>
-          <h3>Meta Titles & Descriptions</h3>
-          <p>Strictly within Google's character limits — crafted to maximize click-through rate in search results.</p>
-        </div>
+        <h3>Meta Titles & Descriptions</h3>
+        <p>Strictly within Google's character limits, crafted to maximize click-through rate directly in search results.</p>
       </div>
-      <div class="get-item">
+      <div class="get-card">
         <div class="get-icon">🏷️</div>
-        <div>
-          <h3>Keyword Tags</h3>
-          <p>Eight researched, relevant keyword tags per product to increase visibility across search and marketplace platforms.</p>
-        </div>
+        <h3>8 Keyword Tags Per Product</h3>
+        <p>Researched, relevant keyword tags per listing to increase visibility across Google, Amazon, and marketplace platforms.</p>
       </div>
-      <div class="get-item">
+      <div class="get-card">
         <div class="get-icon">🖼️</div>
-        <div>
-          <h3>Image Alt Text</h3>
-          <p>Descriptive, keyword-rich alt text for every product image — boosting accessibility and image search ranking.</p>
-        </div>
+        <h3>Image Alt Text</h3>
+        <p>Descriptive, keyword-rich alt text for every product image — improving accessibility and image search ranking simultaneously.</p>
       </div>
-      <div class="get-item">
+      <div class="get-card">
         <div class="get-icon">📦</div>
-        <div>
-          <h3>Import-Ready CSV</h3>
-          <p>Everything delivered in a clean, import-ready CSV file that works directly with Shopify, WooCommerce, and more.</p>
-        </div>
+        <h3>Import-Ready CSV</h3>
+        <p>Everything delivered in a single clean CSV file that imports directly into Shopify, WooCommerce, BigCommerce, Magento, and more.</p>
       </div>
     </div>
   </div>
 </section>
 
 <!-- PRICING -->
-<section class="pricing-section">
-  <p class="section-label" style="color:var(--mid);text-align:center">Pricing</p>
-  <h2>Simple, flat-rate pricing.</h2>
-  <p>No subscriptions. No per-product fees. One catalog, fully optimized.</p>
-  <div class="pricing-card">
-    <div class="price-tag">$497 <span>one-time</span></div>
-    <p class="price-desc">Full catalog optimization — up to 100 products</p>
-    <ul class="price-features">
-      <li>SEO-optimized title for every product</li>
-      <li>HTML product description with benefits & formatting</li>
-      <li>Meta title & description within Google's limits</li>
-      <li>8 keyword tags per product</li>
-      <li>Image alt text for every listing</li>
-      <li>Import-ready CSV delivered in 48 hours</li>
-      <li>Shopify, WooCommerce & platform compatible</li>
-    </ul>
-    <a href="https://buy.stripe.com/your_seo_checkout_link" class="btn-white">Get My Catalog Optimized →</a>
+<section class="pricing-section" id="pricing">
+  <div class="pricing-inner">
+    <p class="section-eyebrow" style="text-align:center">Pricing</p>
+    <h2 class="section-title" style="text-align:center">One flat rate. No surprises.</h2>
+    <p class="section-sub" style="margin:0 auto;text-align:center">No subscriptions. No per-product fees. One catalog, fully optimized and delivered in 48 hours.</p>
+    <div class="pricing-card">
+      <div class="pricing-glow"></div>
+      <p style="font-size:0.75rem;font-weight:700;letter-spacing:0.1em;text-transform:uppercase;color:var(--accent);margin-bottom:1rem">Full Catalog SEO Overhaul</p>
+      <div class="price-amount">$497 <span>one-time</span></div>
+      <p class="price-period">Up to 100 products · Delivered in 48 hours</p>
+      <hr class="price-divider">
+      <ul class="price-features">
+        <li>SEO-optimized title for every product listing</li>
+        <li>HTML product description with benefits & formatting</li>
+        <li>Meta title & description within Google's character limits</li>
+        <li>8 keyword tags per product for maximum search visibility</li>
+        <li>Descriptive image alt text for every listing</li>
+        <li>Import-ready CSV — works with all major platforms</li>
+        <li>Delivered in 48 hours or less, guaranteed</li>
+        <li>Satisfaction guarantee — we revise until you're happy</li>
+      </ul>
+      <a href="https://buy.stripe.com/your_seo_checkout_link" class="btn-buy">Get My Catalog Optimized — $497 →</a>
+      <div class="guarantee">
+        <span>🔒</span> Secure checkout via Stripe · Satisfaction guaranteed or your money back
+      </div>
+      <div class="stripe-notice">
+        <svg width="14" height="14" viewBox="0 0 24 24" fill="#6B7280"><path d="M12 2C6.48 2 2 6.48 2 12s4.48 10 10 10 10-4.48 10-10S17.52 2 12 2zm-2 15l-5-5 1.41-1.41L10 14.17l7.59-7.59L19 8l-9 9z"/></svg>
+        Payment processed securely by Stripe. We never store card details.
+      </div>
+    </div>
   </div>
 </section>
 
 <!-- FAQ -->
-<section class="faq-section">
-  <h2>Frequently asked questions.</h2>
-  <div class="faq-item">
-    <h3>How do I send you my products?</h3>
-    <p>Just export your product catalog as a CSV from Shopify, WooCommerce, or any platform — or paste your store URL. We take it from there.</p>
-  </div>
-  <div class="faq-item">
-    <h3>How long does it take?</h3>
-    <p>48 hours from the time you submit your catalog. Most orders are completed faster than that.</p>
-  </div>
-  <div class="faq-item">
-    <h3>What platforms does this work with?</h3>
-    <p>We deliver a universal CSV that imports directly into Shopify, WooCommerce, BigCommerce, Etsy, Amazon, and most other e-commerce platforms.</p>
-  </div>
-  <div class="faq-item">
-    <h3>What if I have more than 100 products?</h3>
-    <p>No problem — contact us before purchasing and we'll quote a custom rate for larger catalogs.</p>
-  </div>
-  <div class="faq-item">
-    <h3>Is this a subscription?</h3>
-    <p>No. This is a one-time service. Pay once, get your optimized catalog, upload it, and start ranking.</p>
+<section class="faq-section" id="faq">
+  <div class="faq-inner">
+    <p class="section-eyebrow">FAQ</p>
+    <h2 class="section-title">Common questions.</h2>
+    <div class="faq-list">
+      <div class="faq-item">
+        <div class="faq-q">How do I send you my products?</div>
+        <div class="faq-a">Export your product catalog as a CSV from Shopify, WooCommerce, BigCommerce, or any platform — or just paste your store URL after checkout. We'll take it from there and handle all data processing.</div>
+      </div>
+      <div class="faq-item">
+        <div class="faq-q">How fast is delivery?</div>
+        <div class="faq-a">We guarantee delivery within 48 hours of receiving your product data. Most orders are completed faster. If we ever miss the window, you'll be notified immediately and we'll prioritize your order.</div>
+      </div>
+      <div class="faq-item">
+        <div class="faq-q">What platforms does the CSV work with?</div>
+        <div class="faq-a">Our output CSV imports directly into Shopify, WooCommerce, BigCommerce, Magento, Etsy, Amazon Seller Central, and most other e-commerce platforms. If you're on a custom platform, we'll format the output to match your requirements.</div>
+      </div>
+      <div class="faq-item">
+        <div class="faq-q">What if I have more than 100 products?</div>
+        <div class="faq-a">Contact us before purchasing at support@listingcontentco.com and we'll quote a custom rate for larger catalogs. We handle bulk catalogs of 500–5,000+ products regularly.</div>
+      </div>
+      <div class="faq-item">
+        <div class="faq-q">Is this a subscription or one-time payment?</div>
+        <div class="faq-a">Completely one-time. You pay $497, we optimize your catalog, you import it to your store. No recurring charges, no contracts, no hidden fees.</div>
+      </div>
+      <div class="faq-item">
+        <div class="faq-q">What's your refund policy?</div>
+        <div class="faq-a">We offer a full satisfaction guarantee. If the optimized content doesn't meet our stated standards after two rounds of revision, we'll refund you in full. See our full Refund Policy below.</div>
+      </div>
+    </div>
   </div>
 </section>
 
-<!-- CTA -->
-<section class="cta-section">
+<!-- CTA BANNER -->
+<section class="cta-banner">
   <h2>Your catalog is losing sales every day it's unoptimized.</h2>
-  <p>Get every listing SEO-ready in 48 hours.</p>
-  <a href="https://buy.stripe.com/your_seo_checkout_link" class="btn-cta">Optimize My Catalog — $497</a>
+  <p>Get every listing SEO-ready in 48 hours — one flat rate, no subscription.</p>
+  <a href="https://buy.stripe.com/your_seo_checkout_link" class="btn-primary" style="font-size:1.05rem;padding:1rem 2.5rem">Get My Catalog Optimized — $497 →</a>
 </section>
 
+<!-- FOOTER -->
 <footer>
-  <p>ListingContent Co &nbsp;·&nbsp; listingcontentco@gmail.com &nbsp;·&nbsp; © 2026 All rights reserved.</p>
-  <p style="margin-top:0.5rem">
-    <a href="/privacy.html" style="color:inherit;margin:0 0.75rem">Privacy Policy</a>
-    <a href="/terms.html" style="color:inherit;margin:0 0.75rem">Terms of Service</a>
-    <a href="/refunds.html" style="color:inherit;margin:0 0.75rem">Refund Policy</a>
-  </p>
+  <div class="footer-inner">
+    <div>
+      <div class="footer-brand">Listing<span>Content</span> Co</div>
+      <div class="footer-tagline">AI-Powered E-Commerce Catalog SEO · 48-Hour Delivery</div>
+      <div class="footer-contact">
+        Support: <a href="mailto:support@listingcontentco.com">support@listingcontentco.com</a><br>
+        General: <a href="mailto:listingcontentco@gmail.com">listingcontentco@gmail.com</a>
+      </div>
+    </div>
+    <div class="footer-links">
+      <a href="/privacy.html">Privacy Policy</a>
+      <a href="/terms.html">Terms of Service</a>
+      <a href="/refunds.html">Refund Policy</a>
+    </div>
+  </div>
+  <div class="footer-bottom">
+    © 2026 ListingContent Co. All rights reserved. · Payments processed securely by Stripe.
+  </div>
 </footer>
+
+<script>
+// FAQ accordion
+document.querySelectorAll('.faq-q').forEach(q => {
+  q.addEventListener('click', () => {
+    const item = q.parentElement;
+    const wasOpen = item.classList.contains('open');
+    document.querySelectorAll('.faq-item').forEach(i => i.classList.remove('open'));
+    if (!wasOpen) item.classList.add('open');
+  });
+});
+</script>
 
 </body>
 </html>
