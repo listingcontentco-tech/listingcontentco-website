@@ -1,0 +1,77 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Contact — ListingContent Co</title>
+<link href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@400;600;700;800&display=swap" rel="stylesheet">
+<style>
+*{box-sizing:border-box;margin:0;padding:0}
+:root{--bg:#090D16;--bg2:#0F172A;--border:rgba(255,255,255,0.08);--border2:rgba(255,255,255,0.12);--white:#F8FAFC;--muted:#94A3B8;--accent:#10B981;--accent2:#6366F1}
+body{font-family:'Plus Jakarta Sans',sans-serif;background:var(--bg);color:var(--white);font-size:16px;line-height:1.6}
+body::before{content:'';position:fixed;top:0;left:0;right:0;bottom:0;background-image:linear-gradient(rgba(255,255,255,0.02) 1px,transparent 1px),linear-gradient(90deg,rgba(255,255,255,0.02) 1px,transparent 1px);background-size:60px 60px;pointer-events:none;z-index:0}
+nav{position:fixed;top:0;left:0;right:0;z-index:100;display:flex;align-items:center;justify-content:space-between;padding:1rem 2rem;background:rgba(9,13,22,0.85);backdrop-filter:blur(20px);border-bottom:1px solid var(--border)}
+.nav-logo{font-size:1rem;font-weight:800;color:var(--white);text-decoration:none}
+.nav-logo span{color:var(--accent)}
+.content{max-width:640px;margin:0 auto;padding:8rem 2rem 6rem;position:relative;z-index:1}
+h1{font-size:2.5rem;font-weight:800;letter-spacing:-0.03em;margin-bottom:0.5rem}
+.sub{color:var(--muted);margin-bottom:3rem;font-size:1.05rem}
+.contact-cards{display:grid;grid-template-columns:1fr 1fr;gap:1rem;margin-bottom:3rem}
+@media(max-width:500px){.contact-cards{grid-template-columns:1fr}}
+.contact-card{background:var(--bg2);border:1px solid var(--border);border-radius:14px;padding:1.5rem}
+.contact-card .icon{font-size:1.5rem;margin-bottom:0.75rem}
+.contact-card h3{font-size:0.9rem;font-weight:700;margin-bottom:0.4rem}
+.contact-card p{font-size:0.8rem;color:var(--muted);margin-bottom:0.6rem}
+.contact-card a{color:var(--accent);font-size:0.875rem;font-weight:600;text-decoration:none}
+.faq-note{background:rgba(99,102,241,0.08);border:1px solid rgba(99,102,241,0.2);border-radius:12px;padding:1.5rem}
+.faq-note h3{font-size:0.95rem;font-weight:700;margin-bottom:0.5rem}
+.faq-note p{font-size:0.875rem;color:var(--muted)}
+.faq-note a{color:var(--accent2);text-decoration:none;font-weight:600}
+footer{text-align:center;padding:2rem;font-size:0.8rem;color:var(--muted);border-top:1px solid var(--border);position:relative;z-index:1}
+footer a{color:var(--muted);text-decoration:none;margin:0 0.5rem}
+</style>
+</head>
+<body>
+<nav><a href="/" class="nav-logo">Listing<span>Content</span> Co</a></nav>
+<div class="content">
+  <h1>Contact Us</h1>
+  <p class="sub">We typically respond within a few hours during business days.</p>
+  <div class="contact-cards">
+    <div class="contact-card">
+      <div class="icon">📦</div>
+      <h3>Order Support</h3>
+      <p>Questions about your current order, delivery, or revisions.</p>
+      <a href="mailto:support@listingcontentco.com">support@listingcontentco.com</a>
+    </div>
+    <div class="contact-card">
+      <div class="icon">💼</div>
+      <h3>General Inquiries</h3>
+      <p>Bulk catalogs, custom quotes, or partnership inquiries.</p>
+      <a href="mailto:listingcontentco@gmail.com">listingcontentco@gmail.com</a>
+    </div>
+    <div class="contact-card">
+      <div class="icon">⏱️</div>
+      <h3>Response Time</h3>
+      <p>We respond to all emails within 1 business day, usually much faster.</p>
+    </div>
+    <div class="contact-card">
+      <div class="icon">🔄</div>
+      <h3>Refunds & Revisions</h3>
+      <p>See our satisfaction guarantee and refund terms.</p>
+      <a href="/refunds.html">View Refund Policy →</a>
+    </div>
+  </div>
+  <div class="faq-note">
+    <h3>Looking for quick answers?</h3>
+    <p>Most common questions are answered on our <a href="/#faq">FAQ section</a> — covering turnaround time, platform compatibility, bulk pricing, and more.</p>
+  </div>
+</div>
+<footer>
+  © 2026 ListingContent Co &nbsp;·&nbsp;
+  <a href="/privacy.html">Privacy</a>
+  <a href="/terms.html">Terms</a>
+  <a href="/refunds.html">Refunds</a>
+  <a href="/contact.html">Contact</a>
+</footer>
+</body>
+</html>
