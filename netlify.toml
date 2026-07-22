@@ -7,11 +7,6 @@
     Referrer-Policy = "strict-origin-when-cross-origin"
     Cache-Control = "public, max-age=3600"
 
-[[headers]]
-  for = "/*.html"
-  [headers.values]
-    Cache-Control = "public, max-age=3600"
-
 [[redirects]]
   from = "/home"
   to = "/"
@@ -31,3 +26,18 @@
   from = "/refunds"
   to = "/refunds.html"
   status = 301
+
+[[redirects]]
+  from = "/contact"
+  to = "/contact.html"
+  status = 301
+
+[[redirects]]
+  from = "/thank-you"
+  to = "/thank-you.html"
+  status = 301
+
+[[redirects]]
+  from = "/*"
+  to = "/404.html"
+  status = 404
