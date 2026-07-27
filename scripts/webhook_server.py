@@ -31,6 +31,7 @@ from datetime import datetime
 from pathlib import Path
 
 from flask import Flask, jsonify, request
+import requests
 
 # ---------------------------------------------------------------------------
 # SETUP
@@ -64,10 +65,30 @@ def validate_secret(req) -> bool:
 
 
 def download_csv(url: str, dest_path: str) -> bool:
-    """Download a CSV from a URL to a local path."""
+    """Download a CSV from a URL to a local path.
+
+    Uses requests with a browser User-Agent. Tally file URLs are served
+    through Cloudflare, which rejects Python's default urllib User-Agent
+    ("Python-urllib/3.x") with a 403. urlretrieve therefore always failed
+    on Tally uploads even though the URL and access token were valid.
+    """
+    headers = {
+        "User-Agent": (
+            "Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 "
+            "(KHTML, like Gecko) Chrome/126.0.0.0 Safari/537.36"
+        ),
+        "Accept": "*/*",
+    }
     try:
         log.info(f"Downloading CSV from: {url[:80]}...")
-        urllib.request.urlretrieve(url, dest_path)
+        resp = requests.get(url, headers=headers, timeout=60, allow_redirects=True)
+        log.info(f"Download response: HTTP {resp.status_code}, "
+                 f"content-type={resp.headers.get('content-type')}")
+        if resp.status_code != 200:
+            log.error(f"Download failed: HTTP {resp.status_code} — {resp.text[:200]}")
+            return False
+        with open(dest_path, "wb") as fh:
+            fh.write(resp.content)
         size = Path(dest_path).stat().st_size
         log.info(f"Downloaded {size} bytes")
         return size > 0
