@@ -17,6 +17,7 @@ Environment Variables Required:
     WEBHOOK_SECRET          — Optional shared secret for request validation
 """
 
+import base64
 import hashlib
 import hmac
 import json
@@ -291,8 +292,24 @@ def process():
                 "message": "Optimization completed but output file not found"
             }), 500
 
-        # ── Upload to Drive ──
+        # ── Upload to Drive (optional backup — requires GOOGLE_SERVICE_ACCOUNT_JSON) ──
         drive_url = upload_to_drive(output_path, output_filename)
+
+        # ── Read optimized CSV so it can be returned to the caller ──
+        # The output file lives on ephemeral disk and is lost when the request
+        # ends. Returning it in the response lets the caller (Make) attach it
+        # directly to the customer's email — no Drive dependency required.
+        csv_b64 = None
+        csv_bytes_len = 0
+        try:
+            with open(output_path, "rb") as fh:
+                raw = fh.read()
+            csv_bytes_len = len(raw)
+            csv_b64 = base64.b64encode(raw).decode("ascii")
+            log.info(f"Returning CSV inline: {csv_bytes_len} bytes "
+                     f"({len(csv_b64)} chars base64)")
+        except Exception as e:
+            log.error(f"Could not read output CSV for inline return: {e}")
 
         elapsed = round(time.time() - start_time, 1)
 
@@ -307,6 +324,8 @@ def process():
             "products_failed": result["failed"],
             "output_filename": output_filename,
             "output_csv_url": drive_url or "Drive upload not configured — see server logs",
+            "csv_base64": csv_b64,
+            "csv_size_bytes": csv_bytes_len,
             "processing_time_seconds": elapsed,
             "message": f"Successfully optimized {result['successful']} products in {elapsed}s"
         }
