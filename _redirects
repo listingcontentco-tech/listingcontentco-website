@@ -1,7 +1,6 @@
+# Cloudflare Pages serves extensionless URLs natively and 301s /page.html -> /page.
+# Do NOT add /page -> /page.html rules here: that creates an infinite redirect loop.
+# (These rules existed for Netlify and broke /refunds.html on Cloudflare.)
+
 /home              /                 301
-/privacy           /privacy.html     301
-/terms             /terms.html       301
-/refunds           /refunds.html     301
-/contact           /contact.html     301
-/thank-you         /thank-you.html   301
 /*                 /404.html         404
