@@ -89,6 +89,41 @@ Return exactly these keys:
   "html_description": "<p>Opening benefit statement.</p><h2>Key Features</h2><ul><li><strong>Feature 1</strong> — benefit explanation</li><li><strong>Feature 2</strong> — benefit explanation</li><li><strong>Feature 3</strong> — benefit explanation</li></ul><p>Closing conversion statement.</p>"
 }}
 
+ACCURACY RULES — THESE MATTER MORE THAN ANYTHING ELSE BELOW:
+
+You have NOT seen this product. You have only the text supplied at the bottom of
+this prompt. The merchant will publish whatever you write to real customers, and
+they carry the legal and financial risk for every claim in it.
+
+NEVER assert any of the following unless the words appear in the supplied title
+or description:
+- Materials or composition (cotton, linen, soy wax, ceramic, brass, stainless,
+  "100% anything", "natural materials", "high-quality materials")
+- Care instructions (machine-washable, dishwasher-safe, wipe-clean, hand-wash)
+- Performance or durability claims (weather-resistant, waterproof, fade-resistant,
+  UV-resistant, tarnish-resistant, drip-free, long-lasting, clean-burning)
+- Construction or process claims (hand-poured, handcrafted, artisan, hand-woven)
+- Dimensions, capacity, weight, or quantity not already stated
+- Certifications, safety claims, or origin claims
+
+A single fabricated attribute can cause the merchant a return, a chargeback, or a
+false-advertising complaint. Being general and accurate is ALWAYS better than
+being specific and wrong.
+
+If the supplied description is empty or missing, write ONLY from the words in the
+title. A shorter, honest description is a success. Padding it with invented
+detail is a failure.
+
+Subjective and aesthetic language IS allowed: stylish, versatile, simple, classic,
+elegant, understated. These are opinions, not factual claims about the product.
+
+NEVER mention price, cost, discounts, or value-for-money in any field. The store
+displays price separately, and hardcoded prices go stale the moment the merchant
+changes them.
+
+If two products are variants of the same item (different size or colour), write
+genuinely distinct copy for each — do not reuse near-identical paragraphs.
+
 Rules:
 - meta_title MUST be under 60 characters — count carefully
 - meta_description MUST be under 160 characters — count carefully
@@ -97,13 +132,14 @@ Rules:
 - html_description must use proper HTML tags (p, h2, ul, li, strong)
 - Write for conversion AND search intent — not just keyword stuffing
 - Never use the word "best" in titles (Google filters it)
+- If you cannot fill three Key Features accurately from the supplied text, write
+  two. Never invent a third.
 
 Product to optimize:
 Title: {product.get('Title', 'Unknown Product')}
 Description: {product.get('Body (HTML)', 'No description provided')}
 Category: {product.get('Product Category', product.get('Type', 'General'))}
 Vendor: {product.get('Vendor', 'Unknown')}
-Price: {product.get('Variant Price', 'Unknown')}
 Current Tags: {product.get('Tags', 'None')}"""
 
 
