@@ -207,7 +207,7 @@ function render(d){
     ${items}
     <section class="cta">
       <h2>That's three products. You have ${d.products_found}${d.products_found>=25?' or more':''}.</h2>
-      <p>I run the same rewrite across your whole catalog and send back a file you import straight into Shopify. Titles, descriptions, meta fields, keyword tags and image alt text. Two days, and it only touches text — your pricing, inventory and URLs stay exactly as they are.</p>
+      <p>I run the same rewrite across your whole catalog and send back a file you import straight back into your store. Titles, descriptions, meta fields, keyword tags and image alt text. Two days, and it only touches text — your pricing, inventory and URLs stay exactly as they are.</p>
       <a href="mailto:byron@listingcontentco.com?subject=Full%20catalog%20audit%20for%20${encodeURIComponent(d.domain)}&body=Hi%20Byron%2C%20I%20ran%20the%20free%20audit%20on%20${encodeURIComponent(d.domain)}%20and%20I%27d%20like%20the%20full%20catalog%20done."
          onclick="if(window.posthog)posthog.capture('audit_cta_clicked',{domain:'${esc(d.domain)}'})">Get the full catalog done</a>
     </section>`;
