@@ -53,6 +53,35 @@ WEBHOOK_SECRET = os.getenv("WEBHOOK_SECRET", "")
 PORT = int(os.getenv("PORT", 8000))
 MAX_PRODUCTS = int(os.getenv("MAX_PRODUCTS", 100))
 
+# Public /audit endpoint: no auth, so rate limit by IP.
+AUDIT_HITS: dict[str, list[float]] = {}
+AUDIT_LIMIT = int(os.getenv("AUDIT_LIMIT", 5))
+AUDIT_WINDOW = 3600  # one hour
+
+# Shopify sits behind Cloudflare, which blocks Python's default User-Agent.
+BROWSER_UA = (
+    "Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 "
+    "(KHTML, like Gecko) Chrome/122.0 Safari/537.36"
+)
+
+ALLOWED_ORIGINS = {
+    "https://listingcontentco.com",
+    "https://www.listingcontentco.com",
+    "https://listingcontentco-website.pages.dev",
+}
+
+
+def _cors(resp):
+    """Allow the public site to call /audit from the browser."""
+    origin = request.headers.get("Origin", "")
+    resp.headers["Access-Control-Allow-Origin"] = (
+        origin if origin in ALLOWED_ORIGINS else "https://listingcontentco.com"
+    )
+    resp.headers["Access-Control-Allow-Methods"] = "POST, OPTIONS"
+    resp.headers["Access-Control-Allow-Headers"] = "Content-Type"
+    resp.headers["Access-Control-Max-Age"] = "86400"
+    return resp
+
 # ---------------------------------------------------------------------------
 # HELPERS
 # ---------------------------------------------------------------------------
@@ -163,6 +192,133 @@ def upload_to_drive(file_path: str, filename: str) -> str | None:
 # ---------------------------------------------------------------------------
 # ROUTES
 # ---------------------------------------------------------------------------
+
+@app.route("/audit", methods=["POST", "OPTIONS"])
+def audit():
+    """
+    Public free audit. Takes a store URL, fetches the public products
+    endpoint, scores description quality and returns a sample rewrite.
+
+    No auth: this is the lead magnet. Rate limited by IP.
+    """
+    if request.method == "OPTIONS":
+        return _cors(jsonify({"ok": True}))
+
+    ip = request.headers.get("X-Forwarded-For", request.remote_addr or "unknown").split(",")[0].strip()
+    now = time.time()
+    hits = [t for t in AUDIT_HITS.get(ip, []) if now - t < AUDIT_WINDOW]
+    if len(hits) >= AUDIT_LIMIT:
+        return _cors(jsonify({
+            "status": "rate_limited",
+            "message": "That's a few audits in a row. Try again in an hour, or email byron@listingcontentco.com and I'll run it for you."
+        })), 429
+    hits.append(now)
+    AUDIT_HITS[ip] = hits
+
+    payload = request.get_json(silent=True) or {}
+    raw = (payload.get("url") or "").strip()
+    if not raw:
+        return _cors(jsonify({"status": "error", "message": "Enter a store URL to audit."})), 400
+
+    domain = raw.lower().replace("https://", "").replace("http://", "").split("/")[0].replace("www.", "")
+    if "." not in domain or " " in domain:
+        return _cors(jsonify({"status": "error", "message": f"'{raw}' doesn't look like a store address. Try something like yourstore.com"})), 400
+
+    try:
+        r = requests.get(
+            f"https://{domain}/products.json?limit=25",
+            headers={"User-Agent": BROWSER_UA},
+            timeout=15,
+        )
+        products = (r.json() or {}).get("products", []) if r.status_code == 200 else []
+    except Exception as e:
+        log.info("Audit fetch failed for %s: %s", domain, e)
+        products = []
+
+    if not products:
+        return _cors(jsonify({
+            "status": "not_supported",
+            "domain": domain,
+            "message": "Couldn't read a product catalog there. This works on Shopify stores with a public catalog — check the address, or email byron@listingcontentco.com and I'll take a look by hand."
+        }))
+
+    # Sample spread across the catalog so we don't grab three variants of one item
+    idx = [i for i in (0, 4, 9) if i < len(products)] or [0]
+    sample = [products[i] for i in idx]
+
+    def strip_html(s):
+        import re
+        return re.sub(r"\s+", " ", re.sub(r"<[^>]+>", " ", s or "")).strip()
+
+    scored = []
+    for p in sample:
+        body = strip_html(p.get("body_html", ""))
+        scored.append({"title": p.get("title", ""), "description": body, "length": len(body)})
+
+    thin = sum(1 for s in scored if s["length"] < 100)
+    avg = round(sum(s["length"] for s in scored) / len(scored))
+
+    rewrites = []
+    if ANTHROPIC_API_KEY:
+        listing = "\n".join(
+            f"{i+1}. Title: {s['title']} | Description: {s['description'] or '(none)'}"
+            for i, s in enumerate(scored)
+        )
+        prompt = f"""You are an e-commerce SEO copywriter reviewing product listings.
+
+ACCURACY RULES — THESE OVERRIDE EVERYTHING ELSE:
+You have NOT seen these products. You only have the text below. Never assert a
+material, dimension, care instruction, certification, or performance claim
+(waterproof, machine-washable, 100% cotton, hand-poured, fade-resistant) unless
+those exact words appear in the supplied text. Subjective language (stylish,
+versatile, classic) is fine. Never mention price.
+If the description is empty, write only from the title. Short and accurate beats
+long and invented.
+
+For each product return JSON only, no preamble, no code fences:
+{{"items":[{{"current_title":"","current_description":"","issue":"","suggested_title":"","suggested_description":"","keywords":["","","","","",""]}}]}}
+
+"issue" = one plain sentence on what is costing them search traffic.
+"suggested_title" under 80 chars. "suggested_description" 2 short sentences.
+
+Products:
+{listing}"""
+        try:
+            resp = requests.post(
+                "https://api.anthropic.com/v1/messages",
+                headers={
+                    "x-api-key": ANTHROPIC_API_KEY,
+                    "anthropic-version": "2023-06-01",
+                    "content-type": "application/json",
+                },
+                json={
+                    "model": "claude-sonnet-4-6",
+                    "max_tokens": 2000,
+                    "messages": [{"role": "user", "content": prompt}],
+                },
+                timeout=60,
+            )
+            txt = resp.json()["content"][0]["text"].strip()
+            txt = txt.replace("```json", "").replace("```", "").strip()
+            rewrites = json.loads(txt).get("items", [])
+        except Exception as e:
+            log.warning("Audit rewrite failed for %s: %s", domain, e)
+
+    return _cors(jsonify({
+        "status": "ok",
+        "domain": domain,
+        "products_found": len(products),
+        "sampled": len(scored),
+        "thin_count": thin,
+        "avg_description_length": avg,
+        "verdict": (
+            "Most of these pages give Google almost nothing to index."
+            if thin >= 2 else
+            "Your descriptions are in reasonable shape — better than most stores we scan."
+        ),
+        "items": rewrites,
+    }))
+
 
 @app.route("/", methods=["GET"])
 def index():
