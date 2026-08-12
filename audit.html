@@ -4,7 +4,7 @@
 <meta charset="utf-8">
 <meta name="viewport" content="width=device-width, initial-scale=1">
 <title>Free Product Page Audit — Listing Content Co.</title>
-<meta name="description" content="Paste your store address. See what your product pages look like to Google, and what they should say instead. Free, no signup.">
+<meta name="description" content="Paste your Shopify or WooCommerce store address. See what your product pages look like to Google, and what they should say instead. Free, no signup.">
 <link rel="canonical" href="https://listingcontentco.com/audit">
 <meta property="og:title" content="What do your product pages look like to Google?">
 <meta property="og:description" content="Paste your store address. Get a real audit of three products in about 30 seconds. Free, no signup.">
@@ -127,7 +127,7 @@ footer a{color:var(--muted)}
          spellcheck="false" aria-label="Your store address">
   <button id="go" type="submit">Run the audit</button>
 </form>
-<p class="fineprint">Works on Shopify stores. Reads only what's already public — no login, nothing stored.</p>
+<p class="fineprint">Works on Shopify and WooCommerce stores. Reads only what's already public — no login, nothing stored.</p>
 
 <div id="status" role="status" aria-live="polite"></div>
 <div id="out"></div>
@@ -196,7 +196,7 @@ function render(d){
 
   out.innerHTML=`
     <section class="verdict">
-      <div class="domain">${esc(d.domain)}</div>
+      <div class="domain">${esc(d.domain)}${d.platform?' &middot; '+esc(d.platform):''}</div>
       <p>${esc(d.verdict)}</p>
       <div class="stats">
         <div class="stat"><b>${d.products_found}${d.products_found>=25?'+':''}</b><span>Products found</span></div>
