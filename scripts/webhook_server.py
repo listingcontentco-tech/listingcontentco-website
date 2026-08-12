@@ -224,22 +224,41 @@ def audit():
     if "." not in domain or " " in domain:
         return _cors(jsonify({"status": "error", "message": f"'{raw}' doesn't look like a store address. Try something like yourstore.com"})), 400
 
+    # Shopify first, then WooCommerce. Both expose a public product endpoint;
+    # the field names differ (body_html vs description).
+    products, platform = [], None
     try:
         r = requests.get(
             f"https://{domain}/products.json?limit=25",
             headers={"User-Agent": BROWSER_UA},
             timeout=15,
         )
-        products = (r.json() or {}).get("products", []) if r.status_code == 200 else []
+        if r.status_code == 200:
+            found = (r.json() or {}).get("products", [])
+            if found:
+                products, platform = found, "shopify"
     except Exception as e:
-        log.info("Audit fetch failed for %s: %s", domain, e)
-        products = []
+        log.info("Shopify probe failed for %s: %s", domain, e)
+
+    if not products:
+        try:
+            r = requests.get(
+                f"https://{domain}/wp-json/wc/store/v1/products?per_page=25",
+                headers={"User-Agent": BROWSER_UA},
+                timeout=15,
+            )
+            if r.status_code == 200:
+                found = r.json() or []
+                if isinstance(found, list) and found:
+                    products, platform = found, "woocommerce"
+        except Exception as e:
+            log.info("Woo probe failed for %s: %s", domain, e)
 
     if not products:
         return _cors(jsonify({
             "status": "not_supported",
             "domain": domain,
-            "message": "Couldn't read a product catalog there. This works on Shopify stores with a public catalog — check the address, or email byron@listingcontentco.com and I'll take a look by hand."
+            "message": "Couldn't read a product catalog there. This works on Shopify and WooCommerce stores with a public catalog — check the address, or email byron@listingcontentco.com and I'll take a look by hand."
         }))
 
     # Sample spread across the catalog so we don't grab three variants of one item
@@ -250,10 +269,20 @@ def audit():
         import re
         return re.sub(r"\s+", " ", re.sub(r"<[^>]+>", " ", s or "")).strip()
 
+    def read(p):
+        """Shopify and WooCommerce name these fields differently."""
+        if platform == "woocommerce":
+            title = p.get("name", "")
+            body = p.get("description") or p.get("short_description") or ""
+        else:
+            title = p.get("title", "")
+            body = p.get("body_html", "")
+        return title, strip_html(body)
+
     scored = []
     for p in sample:
-        body = strip_html(p.get("body_html", ""))
-        scored.append({"title": p.get("title", ""), "description": body, "length": len(body)})
+        title, body = read(p)
+        scored.append({"title": title, "description": body, "length": len(body)})
 
     thin = sum(1 for s in scored if s["length"] < 100)
     avg = round(sum(s["length"] for s in scored) / len(scored))
@@ -307,6 +336,7 @@ Products:
     return _cors(jsonify({
         "status": "ok",
         "domain": domain,
+        "platform": platform,
         "products_found": len(products),
         "sampled": len(scored),
         "thin_count": thin,
