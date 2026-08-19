@@ -51,7 +51,7 @@ ANTHROPIC_API_KEY = os.getenv("ANTHROPIC_API_KEY")
 GDRIVE_FOLDER_ID = os.getenv("GDRIVE_OPTIMIZED_FOLDER_ID", "1GZvimTRVyAGsScbPM3Kcf-j0Uqma635y")
 WEBHOOK_SECRET = os.getenv("WEBHOOK_SECRET", "")
 PORT = int(os.getenv("PORT", 8000))
-MAX_PRODUCTS = int(os.getenv("MAX_PRODUCTS", 100))
+MAX_PRODUCTS = int(os.getenv("MAX_PRODUCTS", 500))
 
 # Public /audit endpoint: no auth, so rate limit by IP.
 AUDIT_HITS: dict[str, list[float]] = {}
