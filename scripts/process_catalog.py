@@ -116,6 +116,13 @@ or description:
 - Dimensions, capacity, weight, or quantity not already stated
 - Certifications, safety claims, or origin claims
 
+COLOUR AND TEXTURE WORDS ARE NOT MATERIALS. Words in the title such as Sand,
+Clay, Slate, Ivory, Rust, Fog, Sage, Ochre, Charcoal, Linen, Woven, Textured,
+Matte or Folded describe appearance only. NEVER infer a material from them.
+"Clay Mug" does not mean ceramic. "Sand Clock" does not mean glass. "Linen
+Cushion" does not mean linen fabric. If the material is not stated in plain
+words in the supplied text, do not name a material at all.
+
 A single fabricated attribute can cause the merchant a return, a chargeback, or a
 false-advertising complaint. Being general and accurate is ALWAYS better than
 being specific and wrong.
