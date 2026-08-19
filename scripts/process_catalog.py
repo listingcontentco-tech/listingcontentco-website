@@ -20,6 +20,7 @@ import logging
 import os
 import sys
 import time
+from concurrent.futures import ThreadPoolExecutor
 from pathlib import Path
 
 # ---------------------------------------------------------------------------
@@ -31,6 +32,15 @@ MODEL = "claude-sonnet-4-6"
 MAX_TOKENS = 1500
 MAX_RETRIES = 3
 RETRY_DELAY = 5  # seconds between retries on rate limit
+
+# Products are optimized concurrently. Each product is one independent
+# Anthropic call, so this is pure I/O wait — threads are cheap and the
+# only real ceiling is the account rate limit.
+#
+# Org is on Scale tier: 10,000 requests/min on Sonnet 4.x. At 32 workers
+# a 500-product catalog issues ~500 requests over ~90s, which is roughly
+# 330 req/min — about 3% of the available limit.
+PARALLEL_WORKERS = int(os.getenv("PARALLEL_WORKERS", 32))
 
 logging.basicConfig(
     level=logging.INFO,
@@ -260,11 +270,29 @@ def process_csv(input_path: str, output_path: str, limit: int | None = None):
     failed = 0
     optimized_rows = []
 
-    for i, row in enumerate(product_rows, 1):
-        log.info(f"Processing {i}/{len(product_rows)}: {row.get('Title', 'Unknown')[:50]}")
+    workers = max(1, min(PARALLEL_WORKERS, len(product_rows)))
+    log.info(f"Optimizing {len(product_rows)} products with {workers} parallel workers")
+    parallel_start = time.time()
 
-        result = optimize_product(client, row, i)
+    # Submit every product at once and collect results by index so the
+    # output CSV keeps the exact row order of the input.
+    results: list[dict | None] = [None] * len(product_rows)
 
+    def _worker(args):
+        idx, row = args
+        try:
+            return idx, optimize_product(client, row, idx + 1)
+        except Exception as e:
+            log.error(f"  Row {idx + 1}: Unhandled worker error: {e}")
+            return idx, None
+
+    with ThreadPoolExecutor(max_workers=workers) as pool:
+        for idx, result in pool.map(_worker, list(enumerate(product_rows))):
+            results[idx] = result
+
+    log.info(f"Parallel optimization finished in {round(time.time() - parallel_start, 1)}s")
+
+    for i, (row, result) in enumerate(zip(product_rows, results), 1):
         if result:
             # Update the row with optimized content
             updated_row = dict(row)
@@ -282,10 +310,6 @@ def process_csv(input_path: str, output_path: str, limit: int | None = None):
             # Keep original row on failure
             optimized_rows.append(row)
             failed += 1
-
-        # Polite delay between API calls to avoid rate limits
-        if i < len(product_rows):
-            time.sleep(0.5)
 
     # Merge variant rows back in (preserving original order by handle)
     all_output_rows = []
